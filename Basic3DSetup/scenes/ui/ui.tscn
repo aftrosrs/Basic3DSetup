@@ -1,0 +1,170 @@
+[gd_scene load_steps=10 format=3 uid="uid://0ck0mnhnjt8m"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_tpnf0"]
+[ext_resource type="Script" path="res://scenes/ui/cursor_manager.gd" id="3_hbg7t"]
+[ext_resource type="PackedScene" uid="uid://daxygoynvdyya" path="res://scenes/ui/menus/game_menu.tscn" id="3_n7rc7"]
+[ext_resource type="PackedScene" uid="uid://ossrp4y0wtt2" path="res://scenes/ui/menus/main_menu.tscn" id="3_sp6m1"]
+[ext_resource type="Texture2D" uid="uid://brxvf2ftq2yn1" path="res://assets/sprites/cursor.png" id="4_mf07r"]
+
+[sub_resource type="Animation" id="Animation_ysutg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Letterbox/TopRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Letterbox/BottomRect:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Transition:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_h3yer"]
+resource_name = "open_letterbox"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Letterbox/TopRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 64)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Letterbox/BottomRect:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_hgyk1"]
+resource_name = "screen_transition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Transition:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nwxsy"]
+_data = {
+"RESET": SubResource("Animation_ysutg"),
+"open_letterbox": SubResource("Animation_h3yer"),
+"screen_transition": SubResource("Animation_hgyk1")
+}
+
+[node name="UI" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_tpnf0")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameMenu" parent="Control" instance=ExtResource("3_n7rc7")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="Letterbox" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopRect" type="ColorRect" parent="Control/Letterbox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BottomRect" type="ColorRect" parent="Control/Letterbox"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 0, 0, 1)
+
+[node name="MainMenu" parent="Control" instance=ExtResource("3_sp6m1")]
+unique_name_in_owner = true
+layout_mode = 1
+mouse_filter = 1
+
+[node name="Transition" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nwxsy")
+}
+
+[node name="CursorManger" type="Node" parent="."]
+script = ExtResource("3_hbg7t")
+base_window_size = Vector2(960, 544)
+cursor_texture = ExtResource("4_mf07r")
+
+[connection signal="main_menu" from="Control/GameMenu" to="." method="_on_menu_main_menu"]
+[connection signal="return_to_game" from="Control/GameMenu" to="." method="_on_menu_return_to_game"]
+[connection signal="start_game" from="Control/MainMenu" to="." method="_on_main_menu_start_game"]

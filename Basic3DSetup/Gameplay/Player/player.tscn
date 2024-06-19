@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnwaf2m5ngyfs"]
+
+[ext_resource type="Script" path="res://Gameplay/Player/basic_player_startup.gd" id="1_sot23"]
+[ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://Gameplay/Player/basic_player_head.tscn" id="2_0xldj"]
+[ext_resource type="PackedScene" uid="uid://daxygoynvdyya" path="res://scenes/ui/menus/game_menu.tscn" id="3_4ndcx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_li7ud"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_sot23")
+
+[node name="Head" parent="." instance=ExtResource("2_0xldj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412659, 0)
+script = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_li7ud")
+
+[node name="GameMenu" parent="." instance=ExtResource("3_4ndcx")]
+visible = false

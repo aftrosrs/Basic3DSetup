@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx8jlsfrpk7h4"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_uu6mj"]
+[ext_resource type="PackedScene" uid="uid://0ck0mnhnjt8m" path="res://scenes/ui/ui.tscn" id="4_uclr4"]
+[ext_resource type="AudioStream" uid="uid://jt1uonaoisg" path="res://assets/audio/music/Rolemusic - The White Frame.mp3" id="5_c1nwv"]
+
+[node name="game" type="Node2D" node_paths=PackedStringArray("ui")]
+script = ExtResource("1_uu6mj")
+ui = NodePath("UI")
+
+[node name="UI" parent="." instance=ExtResource("4_uclr4")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_c1nwv")
+volume_db = -20.0
+autoplay = true
+bus = &"Music"
+
+[connection signal="menu_closed" from="UI" to="." method="_on_ui_menu_closed"]
+[connection signal="menu_opened" from="UI" to="." method="_on_ui_menu_opened"]
+[connection signal="quit_to_menu" from="UI" to="." method="_on_ui_quit_to_menu"]
+[connection signal="start_game" from="UI" to="." method="_on_ui_start_game"]

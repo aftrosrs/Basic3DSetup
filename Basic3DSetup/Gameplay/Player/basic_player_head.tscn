@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://kmyakts4l64t"]
+
+[sub_resource type="GDScript" id="GDScript_mt6f5"]
+script/source = "extends Node3D
+"
+
+[node name="Head" type="Node3D"]
+script = SubResource("GDScript_mt6f5")
+
+[node name="Camera3D" type="Camera3D" parent="."]

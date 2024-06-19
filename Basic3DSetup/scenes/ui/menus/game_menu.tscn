@@ -1,0 +1,172 @@
+[gd_scene load_steps=4 format=3 uid="uid://daxygoynvdyya"]
+
+[ext_resource type="Theme" uid="uid://65dakj0ukuj6" path="res://assets/themes/default_theme.tres" id="1_mwxwu"]
+[ext_resource type="Script" path="res://scenes/ui/menus/game_menu.gd" id="2_pgx83"]
+[ext_resource type="Script" path="res://scenes/ui/menus/UnpauseNode.gd" id="3_g0t1k"]
+
+[node name="GameMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mwxwu")
+script = ExtResource("2_pgx83")
+action_items = Array[String](["move_forward", "move_backward", "move_left", "move_right", "jump", "interact"])
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0705882, 0.0705882, 0.0705882, 0.780392)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_right = 256
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="ReturnToGameButton" type="Button" parent="MarginContainer/ButtonsVBox"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../SettingsGridContainer/MusicSlider")
+focus_next = NodePath("../SettingsGridContainer/MusicSlider")
+focus_previous = NodePath("../QuitButton")
+text = "Continue Game"
+alignment = 0
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ButtonsVBox"]
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/ButtonsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsGridContainer/InputTypeButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../SettingsGridContainer/InputTypeButton")
+text = "Return to menu"
+alignment = 0
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/ButtonsVBox"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MarginContainer/ButtonsVBox"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../MainMenuButton")
+focus_neighbor_bottom = NodePath("../ReturnToGameButton")
+focus_next = NodePath("../ReturnToGameButton")
+focus_previous = NodePath("../MainMenuButton")
+text = "Quit Game"
+alignment = 0
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/ButtonsVBox"]
+layout_mode = 2
+
+[node name="SettingsGridContainer" type="GridContainer" parent="MarginContainer/ButtonsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 16
+columns = 2
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../../ReturnToGameButton")
+focus_neighbor_bottom = NodePath("../SFXSlider")
+focus_next = NodePath("../SFXSlider")
+focus_previous = NodePath("../../ReturnToGameButton")
+max_value = 1.0
+step = 0.05
+
+[node name="HSeparator6" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="HSeparator7" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+text = "SFX"
+
+[node name="SFXSlider" type="HSlider" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../MusicSlider")
+focus_neighbor_bottom = NodePath("../InputTypeButton")
+focus_next = NodePath("../InputTypeButton")
+focus_previous = NodePath("../MusicSlider")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="HSeparator8" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="HSeparator9" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="InputTypeLabel" type="Label" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+text = "Input Type"
+
+[node name="InputTypeButton" type="OptionButton" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../SFXSlider")
+focus_neighbor_bottom = NodePath("../../MainMenuButton")
+focus_next = NodePath("../../MainMenuButton")
+focus_previous = NodePath("../SFXSlider")
+item_count = 2
+selected = 0
+popup/item_0/text = "Keyboard"
+popup/item_0/id = 0
+popup/item_1/text = "Gamepad"
+popup/item_1/id = 1
+
+[node name="HSeparator10" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="HSeparator11" type="HSeparator" parent="MarginContainer/ButtonsVBox/SettingsGridContainer"]
+layout_mode = 2
+
+[node name="UnpauseNode" type="Node" parent="."]
+process_mode = 2
+script = ExtResource("3_g0t1k")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/ButtonsVBox/ReturnToGameButton" to="." method="_on_return_to_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonsVBox/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/ButtonsVBox/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/ButtonsVBox/SettingsGridContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/ButtonsVBox/SettingsGridContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="item_selected" from="MarginContainer/ButtonsVBox/SettingsGridContainer/InputTypeButton" to="." method="_on_input_type_button_item_selected"]
