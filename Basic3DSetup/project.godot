@@ -32,7 +32,7 @@ project/assembly_name="Godot Fundamentals"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
+enabled=PackedStringArray()
 
 [filesystem]
 
